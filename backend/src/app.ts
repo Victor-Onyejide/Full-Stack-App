@@ -64,9 +64,12 @@ app.get('/list', async (req: Request, res: Response) => {
             }
 
             list.push(item)
+            
+            const find_list = list.find((i) => i.id === item.id)
 
             await writeList(data)
-            res.status(200).json(data)
+            
+            res.status(200).json(find_list)
 
         }
         catch (err) {
@@ -87,7 +90,7 @@ app.get('/list', async (req: Request, res: Response) => {
 
             await writeList(data)
 
-            res.status(202).json(data)
+            res.status(202).json({ id, todo })
         }
         catch (err) {
             res.status(404).json(err)
@@ -107,7 +110,7 @@ app.get('/list', async (req: Request, res: Response) => {
             data.list = list
 
             await writeList(data)
-            res.status(202).json(data)
+            res.status(202).json(id)
         } catch (error) {
 
             res.status(404).json(error)

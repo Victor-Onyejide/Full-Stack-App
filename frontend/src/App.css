@@ -1,38 +1,99 @@
 .App {
+  width: 700px;
+  height: 500px;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 20px 20px;
+  position: relative;
+  font-weight: bold;
+  font-size: 1.2rem;
+
+}
+header {
+  background-color: #584394;
+  border-radius: 20px;
+  font-size: 2rem;
+  padding-top: 10px;
+  padding-bottom: 10px;
   text-align: center;
-}
+  color: white
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+button, .delete, .edit {
+  cursor: pointer;
+}
+.list-content {
+  /* border: 1px solid black; */
+  max-height: 300px;
+  overflow: auto;
+}
+.items {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  /* padding: ; */
+  font-size: 1.2rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  /* padding-top: 0.2px;
+  padding-bottom: 0.2px */
+  /* height: 25px; */
+  margin-bottom: 10px;
+  padding: 5px 10px;
+}
+.editContent .edit {
+  margin-right: 10px;
+}
+
+.items  p, .items form{
+  /* margin-left: 25px; */
+  margin: 0;
+  display: inline;
+
+}
+input[type=checkbox]{
+  /* padding: 10px 10px; */
+}
+.addTodo {
+  /* change later using position absolute */
+  position: absolute; 
+  bottom: 0;
+  background-color: #d9d7d7;
+  width: 90%;
+  border-radius: 20px;
+  /* height: 25px; */
+  margin-bottom: 10px;
+  padding: 5px 10px;
+
+}
+.addTodo span{
+  /* margin-left: 25px; */
+
+  /* padding: 15px 15px; */
+
+
+}
+form {
+  /* display: inline; */
+  width: 100%;
+  display: flex;
+  justify-content:space-between ;
+}
+.addTodo form input[type=text]{
+  width: 90%;
+  /* width: 500px; */
+
+  border: none;
+  outline: none;
+}
+button{
+  border: none;
+}
+.submit{
+  /* width: 50px; */
+  /* width: 5%; */
+  background-color: #5065AD;
+  border-radius: 50%;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  /* mar */
 }

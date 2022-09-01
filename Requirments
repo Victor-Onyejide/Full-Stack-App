@@ -1,0 +1,8 @@
+* Test
+ to see if the ids in the list are not equal 
+
+* Error
+When adding todo that has the same text it duplicates it on the frontend it does not give a new id and it does not write to the databse file
+   *** OBV
+   The app would have to be refreshed for it to be able to behave properly
+   Is this a state issue
