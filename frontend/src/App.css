@@ -24,64 +24,56 @@ button, .delete, .edit {
   cursor: pointer;
 }
 .list-content {
-  /* border: 1px solid black; */
+  
   max-height: 300px;
   overflow: auto;
 }
 .items {
   background-color: #FFFFFF;
   border-radius: 20px;
-  /* padding: ; */
+  
   font-size: 1.2rem;
   display: flex;
   justify-content: space-between;
-  /* padding-top: 0.2px;
-  padding-bottom: 0.2px */
-  /* height: 25px; */
+
   margin-bottom: 10px;
   padding: 5px 10px;
 }
+/* .editContent {
+  display: none;
+} */
 .editContent .edit {
   margin-right: 10px;
 }
 
 .items  p, .items form{
-  /* margin-left: 25px; */
+  
   margin: 0;
   display: inline;
 
 }
-input[type=checkbox]{
-  /* padding: 10px 10px; */
-}
+
 .addTodo {
-  /* change later using position absolute */
   position: absolute; 
   bottom: 0;
   background-color: #d9d7d7;
   width: 90%;
   border-radius: 20px;
-  /* height: 25px; */
+  
   margin-bottom: 10px;
   padding: 5px 10px;
 
 }
-.addTodo span{
-  /* margin-left: 25px; */
 
-  /* padding: 15px 15px; */
-
-
-}
 form {
-  /* display: inline; */
+  
   width: 100%;
   display: flex;
   justify-content:space-between ;
 }
 .addTodo form input[type=text]{
   width: 90%;
-  /* width: 500px; */
+  
 
   border: none;
   outline: none;
@@ -90,10 +82,9 @@ button{
   border: none;
 }
 .submit{
-  /* width: 50px; */
-  /* width: 5%; */
+  
   background-color: #5065AD;
   border-radius: 50%;
   color: white;
-  /* mar */
+  
 }
