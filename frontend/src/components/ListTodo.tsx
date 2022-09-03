@@ -62,7 +62,7 @@ export default function ListTodo ({list, setList}: SetProps) {
         console.log(checkboxs);
 
         var arr_checkboxs = Array.from(checkboxs as NodeListOf<HTMLInputElement>) ;
-        arr_checkboxs.map((checkbox) => { checkbox.addEventListener('click', () => {
+        arr_checkboxs.map((checkbox) => { checkbox.addEventListener('change', () => {
           console.log("onChange");
           
           if (checkbox.checked) {
