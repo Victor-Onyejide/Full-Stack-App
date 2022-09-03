@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import useFetch from 'use-http';
 
 interface List {
@@ -6,11 +6,14 @@ interface List {
     todo: string
   }
 
-
+type Checked = {
+  index: number,
+  checked: boolean
+}
 type SetProps = {
     list: List[],
     setList: React.Dispatch<React.SetStateAction<List[]>>,
-    getList: ()=>void
+    getList: (param:any)=>void
 }
 
 export default function ListTodo ({list, setList}: SetProps) {
@@ -21,6 +24,8 @@ export default function ListTodo ({list, setList}: SetProps) {
     const [edit, setEdit] = useState<boolean>(false);
     const [editId, setEditId] = useState<string>('');
     const [editList, setEditList] = useState<string>('');
+    const [checked, setChecked] = useState<Checked[]>([]);
+    var checker = false
 
     
     function handleSubmitEdit(event: React.FormEvent<HTMLFormElement>) {
@@ -57,16 +62,20 @@ export default function ListTodo ({list, setList}: SetProps) {
     
     
       }
+      useEffect (()=> {
+        console.log("Checked")
+        console.log(checked)
+      }, [checked])
     return (
         <>
 
             <div className='list-content'>
                 {/* {loading && <p>Loading ...</p>} */}
                 {error && <p>{error.message}</p>}
-                {list && list.map((item) =>
+                {list && list.map((item, index) =>
                 <div className='items' key={item.id} id={item.id}>
-                    <span>
-                    <input type='checkbox' onClick={() =>{ setShowEdit(true); setEditId(item.id) }  }/>
+                    <span className="item-wrapper">
+                    <input type='checkbox' className="checkbox" onClick={() =>{ setShowEdit(toggle => !toggle); }  }/>
                     {
                         (edit && (editId === item.id)) 
                         ? 
@@ -77,7 +86,8 @@ export default function ListTodo ({list, setList}: SetProps) {
                     </span>
 
                     {
-                      showEdit && <div className='editContent'>
+                      showEdit 
+                     &&  <div className='editContent'>
                       {edit && (editId === item.id) ? <button onClick={() => editToDo(item.id)}>Edit</button> :
                       <> 
                           <span className='edit' onClick={() => { setEdit(toggle => !toggle); setEditId(item.id) }}>

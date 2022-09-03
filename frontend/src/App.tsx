@@ -19,7 +19,7 @@ function App() {
 
   async function getList() {
     const data: List[] = await get(PATH)
-    console.log(data)
+    // console.log(data)
     if (response.ok) {
       setList(data)
     } else {
