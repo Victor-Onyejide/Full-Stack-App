@@ -20,10 +20,12 @@ export default function ListTodo ({list, setList}: SetProps) {
     const HOST = 'http://localhost:5000'
     // const PATH = '/list'
     const { loading, response, error, get, del, patch } = useFetch(HOST)
-    const [showEdit, setShowEdit] = useState<boolean>(false);
+    // const [showEdit, setShowEdit] = useState<boolean>(false);
+    const [counter, setCounter] = useState<number>(0);
     const [edit, setEdit] = useState<boolean>(false);
     const [editId, setEditId] = useState<string>('');
     const [editList, setEditList] = useState<string>('');
+    const [display, setDisplay] = useState<string>('none')
 
 
     
@@ -57,44 +59,54 @@ export default function ListTodo ({list, setList}: SetProps) {
 
       function checkCheckBoxs () {
         var checkboxs  = document.querySelectorAll("input[type=checkbox]") ;
-        // as HTMLInputElement
-        console.log("Chech Boxs");
-        console.log(checkboxs);
-
         var arr_checkboxs = Array.from(checkboxs as NodeListOf<HTMLInputElement>) ;
         arr_checkboxs.map((checkbox) => { checkbox.addEventListener('change', () => {
-          console.log("onChange");
-          
+          // console.log("onChange");
+                    
           if (checkbox.checked) {
-            const text = checkbox.parentElement?.parentElement?.querySelector('.editContent') as HTMLElement  ;
+            const text = checkbox.parentElement?.parentElement?.querySelector('.editContent') as HTMLElement;
             text.style.display = 'block';
-            console.log("True");
+            setCounter(counter + 1);
+            console.log(counter);
           } 
-          else {
-            const text = checkbox.parentElement?.parentElement?.querySelector('.editContent') as HTMLElement  ;
+          else { 
+            const text = checkbox.parentElement?.parentElement?.querySelector('.editContent') as HTMLElement;
             text.style.display = 'none';
-            console.log("False");
+            setCounter(counter - 1);
+            console.log(counter);
 
           }
         })});
 
-        
+        if(counter > 1){
+          setDisplay('block');
+        } else if( counter <= 1){
+          setDisplay('none');
+        }
+        else {
+          setCounter(0);
+        }
+
       }
-      useEffect (()=> {
-        checkCheckBoxs ();
-      }, [])
+
+      // useEffect (()=> {
+      //   checkCheckBoxs ();
+      // }, [showEdit])
     return (
-        <>
+        
+          <div className="list-content-wrapper">
+            <i className="fas fa-trash" style={{display:`${display}`}}></i>
 
             <div className='list-content'>
                 {/* {loading && <p>Loading ...</p>} */}
+
                 {error && <p>{error.message}</p>}
 
                 {list && list.map((item, index) =>
                 <div className='items' key={item.id} id={item.id}>
 
-                    <span className="item-wrapper">
-                      <input type='checkbox' className="checkbox"/>
+                    <span className="text-wrapper">
+                      <input type='checkbox' className="checkbox" onChange={checkCheckBoxs}/>
                       {
                           (edit && (editId === item.id)) 
                           ? 
@@ -112,7 +124,9 @@ export default function ListTodo ({list, setList}: SetProps) {
                               <i className="fas fa-pen"></i>
                           </span>
                           <span className='delete' onClick={() => deleteTodo(item.id)}>
-                              <i className="fas fa-trash"></i>
+                              {/* <i className="fas fa-trash"></i> */}
+                              <button className="btn-done">Done</button>
+
                           </span>
                       </>
                       }
@@ -120,6 +134,7 @@ export default function ListTodo ({list, setList}: SetProps) {
                 </div>
                 )}
             </div>
-        </>
+          </div>
+        
     ) 
 }

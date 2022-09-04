@@ -1,3 +1,6 @@
+/* *{
+  margin: 0;
+} */
 .App {
   width: 700px;
   height: 500px;
@@ -7,7 +10,9 @@
   position: relative;
   font-weight: bold;
   font-size: 1.2rem;
-
+  /* display: flex;
+  justify-content: space-between;
+  flex-direction: column; */
 }
 header {
   background-color: #584394;
@@ -23,10 +28,26 @@ header {
 button, .delete, .edit {
   cursor: pointer;
 }
+
+/* List Components */
+
 .list-content {
+  margin-top: 50px;
   
   max-height: 300px;
   overflow: auto;
+}
+
+.list-content-wrapper {
+  position: relative;
+}
+
+.fa-trash {
+  position:absolute;
+  top:-28px;
+  right:0;
+  color: rgb(214, 0, 0);
+  cursor: pointer;
 }
 .items {
   background-color: #FFFFFF;
@@ -39,9 +60,25 @@ button, .delete, .edit {
   margin-bottom: 10px;
   padding: 5px 10px;
 }
-/* .editContent {
+
+.text-wrapper p {
+  /* text-align: center; */
+  /* width: 100%; */
+  /* overflow: auto; */
+}
+
+.editContent {
   display: none;
-} */
+  text-align: center;
+}
+
+.editContent .btn-done {
+  background-color: rgb(61, 209, 61);
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
 .editContent .edit {
   margin-right: 10px;
 }
@@ -53,14 +90,16 @@ button, .delete, .edit {
 
 }
 
+
 .addTodo {
-  position: absolute; 
-  bottom: 0;
+  /* position: absolute; 
+  bottom: 0; */
   background-color: #d9d7d7;
   width: 90%;
   border-radius: 20px;
+  margin-top: 50px;
   
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   padding: 5px 10px;
 
 }
