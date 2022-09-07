@@ -19,15 +19,13 @@ function App() {
 
   async function getList() {
     const data: List[] = await get(PATH)
-    // console.log(data)
     if (response.ok) {
       setList(data)
     } else {
       console.log(error)
     }
-
   }
-
+  
   useEffect(() => {
     getList()
   }, [])
@@ -38,12 +36,8 @@ function App() {
       <header>
         Todo
       </header>
-
       <ListTodo list={list} setList={setList} getList={getList} />
       <Input list={list} setList={setList}/>
-
-      
-
     </div>
   );
 }

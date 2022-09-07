@@ -48,7 +48,6 @@ export default function Input ({list,setList}: SetProps) {
             />
             <button className='submit'><i className="fas fa-arrow-up"></i></button>
             </form>
-
         </div>
     </>
     )
