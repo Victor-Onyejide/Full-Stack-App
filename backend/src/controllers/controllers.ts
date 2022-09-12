@@ -1,8 +1,7 @@
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { promises as fs } from 'fs'
-// import {List, Data} from '..../types/types.ts'
-
+const _ = require('lodash');
 const DATABASE = './src/database/database.json'
 
 interface List {
@@ -77,23 +76,24 @@ const updateList = async (req: Request, res: Response) => {
 }
 
 const deleteTodo = async (req: Request, res: Response) => {
-    // const { id }: any = req.params;
-    let id = ['35249fe2-e0a0-4449-8f32-2dbd2fa1da96', 'b870fb4a-dde5-48c1-b4e6-c25e3283ab03', 'c2959bb7-106c-4db8-8350-27193b4d580c'];
+    const { id } = req.params;
+    const arr_id = id.split(',');
+
     try {
         let data = await readList();
         let { list } = data;
         let i = 0;
 
-        for (i; i < id.length; i++) {
-            list = list.filter((item) => item.id !== id[i])
+        for (i; i < arr_id.length; i++) {
+            list = list.filter((item) => item.id !== arr_id[i])
         }
-
         data.list = list
         await writeList(data)
-        res.status(202).json(id)
+        res.status(202).json(arr_id) 
     }
     catch (error) {
         res.status(404).json(error)
+        console.log(error)
     }
 }
 

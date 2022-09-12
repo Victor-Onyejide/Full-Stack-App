@@ -31,7 +31,8 @@ export default function ListTodo({ list, setList }: SetProps) {
 
 
   async function deleteTodo(id: string) {
-    const deleteId = await del(`/list/${id}`);
+    const arr_id = [id]
+    const deleteId = await del(`/list/${arr_id}`);
     if (response.ok) {
       const filter = list.filter((item) => item.id !== deleteId)
       setList(filter)
@@ -39,12 +40,17 @@ export default function ListTodo({ list, setList }: SetProps) {
   }
 
   async function deleteAllTodo() {
+    const deleteAllId = await del(`/list/${selected}`)
+    if(response.ok){
       for (let i = 0; i < selected.length; i++) {
-        list = list.filter((item) => item.id !== selected[i])
+        list = list.filter((item) => item.id !== deleteAllId[i])
       }
       console.log('List')
       console.log(list)
       setList(list)
+
+    }
+      
 
   }
 
@@ -73,12 +79,7 @@ export default function ListTodo({ list, setList }: SetProps) {
           const text = checkbox.parentElement?.parentElement?.querySelector('.editContent') as HTMLElement;
           text.style.display = 'block';
           setCounter(counter + 1);
-
           setSelected([...selected,id])
-          console.log('added');
-          console.log(selected);
-
-
         }
         else {
           const text = checkbox.parentElement?.parentElement?.querySelector('.editContent') as HTMLElement;
@@ -86,8 +87,6 @@ export default function ListTodo({ list, setList }: SetProps) {
           setCounter(counter - 1);
           const filter = selected.filter((item) => item !== id);
           setSelected(filter);
-          console.log('Removed');
-          console.log(selected);
         }
         
       })
