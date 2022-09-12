@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useFetch from 'use-http';
-
+const _ = require('lodash');
 interface List {
   id: string,
   todo: string
@@ -20,8 +20,7 @@ export default function ListTodo({ list, setList }: SetProps) {
   const [editId, setEditId] = useState<string>('');
   const [editList, setEditList] = useState<string>('');
   const [display, setDisplay] = useState<string>('none');
-  var [arrState, setArrState] = useState<any[]>([]);
-  const arrIds: any[] = [];
+  const [selected, setSelected] = useState<string[]>([]);
 
 
 
@@ -40,21 +39,13 @@ export default function ListTodo({ list, setList }: SetProps) {
   }
 
   async function deleteAllTodo() {
-    // let arr_id = ['35249fe2-e0a0-4449-8f32-2dbd2fa1da96', 'b870fb4a-dde5-48c1-b4e6-c25e3283ab03', 'c2959bb7-106c-4db8-8350-27193b4d580c'];
-    console.log("Selected Todos")
-    console.log(arrState)
-    // const deleteIds = await del(`/list/${arrState}`);
-    // if (response.ok) {
-      for (let i = 0; i < arrState.length; i++) {
-        list = list.filter((item) => item.id !== arrState[i])
+      for (let i = 0; i < selected.length; i++) {
+        list = list.filter((item) => item.id !== selected[i])
       }
       console.log('List')
       console.log(list)
-
       setList(list)
 
-      // alert('Ok')
-    // }
   }
 
   async function editToDo(id: string) {
@@ -72,7 +63,6 @@ export default function ListTodo({ list, setList }: SetProps) {
   }
 
   function checkCheckBoxs(id:string) {
-    // console.log(arrState)
 
     var checkboxs = document.querySelectorAll("input[type=checkbox]");
     var arr_checkboxs = Array.from(checkboxs as NodeListOf<HTMLInputElement>);
@@ -83,31 +73,24 @@ export default function ListTodo({ list, setList }: SetProps) {
           const text = checkbox.parentElement?.parentElement?.querySelector('.editContent') as HTMLElement;
           text.style.display = 'block';
           setCounter(counter + 1);
-          // console.log(text.id);
-          // setArrIds([...arrIds, text.id]); // the array is not adding properly
-          // arrIds.push([text.id])
-          setArrState([...arrState,id])
+
+          setSelected([...selected,id])
+          console.log('added');
+          console.log(selected);
+
 
         }
         else {
           const text = checkbox.parentElement?.parentElement?.querySelector('.editContent') as HTMLElement;
           text.style.display = 'none';
           setCounter(counter - 1);
-          // console.log(counter);
-          // const filter = arrState.filter((item) => item.id !== id);
-          // // setArrIds(filter); // issue
-          // console.log('removed')
-          // setArrState(filter);
-          // console.log('list');
-          // console.log(arrState);
+          const filter = selected.filter((item) => item !== id);
+          setSelected(filter);
+          console.log('Removed');
+          console.log(selected);
         }
         
       })
-
-
-    // let arr_id = ['2a4a8ca9-264b-47f8-9036-a6905ec1b1d3', '79e672b6-7e76-4cf2-bc8d-86086b08b69c',
-    //  'b2f1ea09-0099-448e-8c96-4e7deb05d1a1','63dea50a-6d29-49ce-a7c4-8f7571d28008'];
-    // console.log(arrIds === arr_id)
     });
 
     if (counter > 1) {
@@ -122,10 +105,6 @@ export default function ListTodo({ list, setList }: SetProps) {
 
   }
 
-  // useEffect (()=> {
-  //   checkCheckBoxs()
-  //   console.log('mounted')
-  // }, [])
 
   return (
 
