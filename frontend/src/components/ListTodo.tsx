@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useFetch from 'use-http';
 const _ = require('lodash');
 interface List {
@@ -9,7 +9,7 @@ interface List {
 type SetProps = {
   list: List[],
   setList: React.Dispatch<React.SetStateAction<List[]>>,
-  getList: (param: any) => void
+  getList: (param: List[]) => void
 }
 
 export default function ListTodo({ list, setList }: SetProps) {
@@ -23,18 +23,15 @@ export default function ListTodo({ list, setList }: SetProps) {
   const [selected, setSelected] = useState<string[]>([]);
 
 
-
   function handleSubmitEdit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
   }
 
-
   async function deleteTodo(id: string) {
-    const arr_id = [id]
-    const deleteId = await del(`/list/${arr_id}`);
+    const deleteId = await del(`/list/${id}`);
     if (response.ok) {
-      const filter = list.filter((item) => item.id !== deleteId)
+      const filter = list.filter((item) => item.id !== deleteId[0])
       setList(filter)
     }
   }
@@ -45,12 +42,10 @@ export default function ListTodo({ list, setList }: SetProps) {
       for (let i = 0; i < selected.length; i++) {
         list = list.filter((item) => item.id !== deleteAllId[i])
       }
-      console.log('List')
-      console.log(list)
       setList(list)
 
     }
-      
+    setDisplay('none');
 
   }
 
@@ -69,10 +64,9 @@ export default function ListTodo({ list, setList }: SetProps) {
   }
 
   function checkCheckBoxs(id:string) {
-
     var checkboxs = document.querySelectorAll("input[type=checkbox]");
     var arr_checkboxs = Array.from(checkboxs as NodeListOf<HTMLInputElement>);
-
+    
     arr_checkboxs.map((checkbox) => {
       checkbox.addEventListener('change', () => {
         if (checkbox.checked) {
@@ -95,12 +89,11 @@ export default function ListTodo({ list, setList }: SetProps) {
     if (counter > 1) {
       setDisplay('block');
     }
-    else if (counter <= 1) {
-      setDisplay('none');
-    }
+
     else {
-      setCounter(0);
-    }
+      setDisplay('none');
+    } 
+
 
   }
 
@@ -109,11 +102,12 @@ export default function ListTodo({ list, setList }: SetProps) {
 
     <div className="list-content-wrapper">
       <i className="fas fa-trash" style={{ display: `${display}` }} onClick={deleteAllTodo}></i>
+      {loading && <p className="loading">loading ...</p>}
+      {error && <p className="error">Something Went Wrong</p>}
+
 
       <div className='list-content'>
-        {/* {loading && <p>Loading ...</p>} */}
 
-        {error && <p>{error.message}</p>}
 
         {list && list.map((item) =>
           <div className='items' key={item.id} id={item.id}>
@@ -148,3 +142,4 @@ export default function ListTodo({ list, setList }: SetProps) {
 
   )
 }
+

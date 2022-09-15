@@ -13,7 +13,7 @@ interface List {
 function App() {
   const HOST = 'http://localhost:5000'
   const PATH = '/list'
-  const { loading, response, error, get} = useFetch(HOST)
+  const {  response, error, get} = useFetch(HOST)
 
   const [list, setList] = useState<List[]>([]);
 

@@ -26,10 +26,23 @@ button, .delete, .edit {
 
 .list-content {
   margin-top: 50px;
-  max-height: 300px;
+  height: 300px;
   overflow: auto;
 }
+.list-content::-webkit-scrollbar {
+  width: 1vw;
+  margin-left: 10px;
+}
 
+.list-content::-webkit-scrollbar-track {
+  background-color: gray;  
+  border-radius: 20px;
+}
+
+.list-content::-webkit-scrollbar-thumb {
+  background-color: #584394;
+  border-radius: 20px;
+}
 .list-content-wrapper {
   position: relative;
 }
@@ -40,6 +53,20 @@ button, .delete, .edit {
   right:0;
   color: rgb(214, 0, 0);
   cursor: pointer;
+}
+.loading {
+  position: absolute;
+  top:-58px;
+  left: 50px;
+  font-size:medium;
+
+}
+.error {
+  position: absolute;
+  top:-58px;
+  left: 20px;
+  color: rgb(161, 7, 7);
+
 }
 .items {
   background-color: #FFFFFF;
